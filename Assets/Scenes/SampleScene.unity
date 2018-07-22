@@ -274,7 +274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   snake: {fileID: 1709584355678606, guid: 0838ed39b566dba4a9e87cff62516cfa, type: 2}
-  period: 1
+  period: 0.5
 --- !u!4 &1221534249
 Transform:
   m_ObjectHideFlags: 0

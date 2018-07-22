@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class snakeController : MonoBehaviour {
+public class SnakeController : MonoBehaviour {
 
     public GameObject snake;
     public float period = 0.5f;
@@ -13,25 +13,55 @@ public class snakeController : MonoBehaviour {
     private float nextActionTime = 0.0f;
 
     void Update()
-    {
+    { 
+        if (currentMovement[0] == 0)
+        {
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                currentMovement[0] = -1;
+                currentMovement[1] = 0;
+                UpdateSnake();
+            }
+            else if (Input.GetKeyDown(KeyCode.RightArrow)) 
+            {
+                currentMovement[0] = 1;
+                currentMovement[1] = 0;
+                UpdateSnake();
+            }
+        }
+
+        else if (currentMovement[1] == 0)
+        {
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                currentMovement[0] = 0;
+                currentMovement[1] = 1;
+                UpdateSnake();
+            }
+            else if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                currentMovement[0] = 0;
+                currentMovement[1] = -1;
+                UpdateSnake();
+            }
+        }
 
         if (Time.time > nextActionTime)
         {
-            nextActionTime = period + Time.time;
-
-            currentPosition = this.gameObject.transform.GetChild(0).position;
-            lastCount = this.gameObject.transform.childCount - 1;
-
-            Destroy(this.gameObject.transform.GetChild(lastCount).gameObject);
-
-            UpdateSnake(new Vector3(currentPosition.x + currentMovement[0], currentPosition.y + currentMovement[1], currentPosition.z));
-
+            UpdateSnake();            
         }
     }
 
-    void UpdateSnake(Vector3 vector3)
+    void UpdateSnake()
     {
-        GameObject newSnake = Instantiate(snake, vector3, transform.rotation) as GameObject;
+        nextActionTime = period + Time.time;
+
+        currentPosition = this.gameObject.transform.GetChild(0).position;
+        lastCount = this.gameObject.transform.childCount - 1;
+
+        Destroy(this.gameObject.transform.GetChild(lastCount).gameObject);
+
+        GameObject newSnake = Instantiate(snake, new Vector3(currentPosition.x + currentMovement[0], currentPosition.y + currentMovement[1], currentPosition.z), transform.rotation) as GameObject;
         newSnake.transform.SetParent(this.transform);
         newSnake.transform.SetAsFirstSibling();
     }
