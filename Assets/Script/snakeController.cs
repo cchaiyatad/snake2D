@@ -50,6 +50,7 @@ public class SnakeController : MonoBehaviour {
         {
             UpdateSnake();            
         }
+        
     }
 
     void UpdateSnake()
@@ -61,7 +62,10 @@ public class SnakeController : MonoBehaviour {
 
         Destroy(this.gameObject.transform.GetChild(lastCount).gameObject);
 
-        GameObject newSnake = Instantiate(snake, new Vector3(currentPosition.x + currentMovement[0], currentPosition.y + currentMovement[1], currentPosition.z), transform.rotation) as GameObject;
+        float newXPosition = Mathf.Abs(currentPosition.x + currentMovement[0]) <= 4.5 ? currentPosition.x + currentMovement[0] : -1 * currentPosition.x;
+        float newYPosition = Mathf.Abs(currentPosition.y + currentMovement[1]) <= 4.5 ? currentPosition.y + currentMovement[1] : -1 * currentPosition.y;
+
+        GameObject newSnake = Instantiate(snake, new Vector3(newXPosition, newYPosition, currentPosition.z), transform.rotation) as GameObject;
         newSnake.transform.SetParent(this.transform);
         newSnake.transform.SetAsFirstSibling();
     }
