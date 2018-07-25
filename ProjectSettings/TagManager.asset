@@ -6,7 +6,6 @@ TagManager:
   tags:
   - Snake
   - Food
-  - Wall
   layers:
   - Default
   - TransparentFX
@@ -47,6 +46,9 @@ TagManager:
   - name: Background
     uniqueID: 3481842997
     locked: 0
-  - name: Object
+  - name: Food
     uniqueID: 3042995083
+    locked: 0
+  - name: Snake
+    uniqueID: 196895723
     locked: 0

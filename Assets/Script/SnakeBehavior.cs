@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class SnakeBehavior : MonoBehaviour {
 
-	// Use this for initialization
+    private GameObject snakes;
+    private SnakeController snakeController;
+
 	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+        snakes = GameObject.Find("Snakes");
+        snakeController = snakes.GetComponent<SnakeController>();
 	}
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -19,6 +17,11 @@ public class SnakeBehavior : MonoBehaviour {
         if (collision.gameObject.CompareTag("Snake"))
         {
             GameController.Lose();
+        }
+        else if (collision.gameObject.CompareTag("Food"))
+        {
+            snakeController.isEating = true;
+            Destroy(collision.gameObject);
         }
     }
 }
