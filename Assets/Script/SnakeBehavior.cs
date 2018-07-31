@@ -22,7 +22,7 @@ public class SnakeBehavior : MonoBehaviour {
     {
         if (collision.gameObject.CompareTag("Snake"))
         {
-            GameController.Lose();
+            gameControllerScript.Lose();
         }
         else if (collision.gameObject.CompareTag("Food"))
         {

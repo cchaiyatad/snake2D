@@ -4,35 +4,55 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour {
 
-    public bool isNoFood = false;
+    public bool isNoFood = true;
     public GameObject Food;
+    public GameObject Snakes;
+    public GameObject Snake;
 
     private GameObject snakes;
     private SnakeController snakeController;
     private List<Vector3> snakeLocation;
+    private bool isPause = false;
+    private bool isLose = false;
     
 
 	// Use this for initialization
 	void Start () {
         snakes = GameObject.Find("Snakes");
         snakeController = snakes.gameObject.GetComponent<SnakeController>();
+        StratGame();
 	}
 
     void Update()
     {
         if (isNoFood) {
             isNoFood = false;
-            Debug.Log("is no food");
-
             AddFood();
+        }
+
+        if(Input.GetKeyDown(KeyCode.P) && !isLose)
+        {
+            Time.timeScale = isPause ? 1 : 0;
+            snakeController.isPress = isPause ? false : true;
+            isPause = !isPause;
         }
     }
 
+    public void StratGame()
+    {
+        for(int i = Snakes.transform.childCount - 1; i >= 0; i--)
+        {
+            Destroy(Snakes.transform.GetChild(i));
+        }
+        GameObject snake = Instantiate(Snake, new Vector3(Random.Range(-5, 5) + 0.5f, Random.Range(-5, 5) + 0.5f, 0), new Quaternion());
+        snake.transform.SetParent(Snakes.transform);
+    }
 
-    public static void Lose()
+    public void Lose()
     {
         Time.timeScale = 0;
-
+        isLose = true;
+        
         Debug.Log(GameObject.Find("Snakes").transform.childCount);
     }
 
@@ -46,7 +66,6 @@ public class GameController : MonoBehaviour {
         while (!isFinish)
         {
             xPosition = Random.Range(-5, 5) + 0.5f ;
-            Debug.Log(xPosition + "x");
             for(int i = 0; i<snakeLocation.Count; i++)
             {
                 if(xPosition == snakeLocation[i].x)

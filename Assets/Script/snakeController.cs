@@ -7,8 +7,8 @@ public class SnakeController : MonoBehaviour {
     public GameObject snake;
     public float period = 0.5f;
     public List<Vector3> snakeLocation;
-
     public bool isEating = false;
+    public bool isPress = false;
 
     private float[] currentMovement = { 0, 1 };
     private Vector3 currentPosition;
@@ -17,37 +17,46 @@ public class SnakeController : MonoBehaviour {
 
     void Update()
     { 
-        if (currentMovement[0] == 0)
+        if(!isPress)
         {
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            if (currentMovement[0] == 0)
             {
-                currentMovement[0] = -1;
-                currentMovement[1] = 0;
+                if (Input.GetKeyDown(KeyCode.LeftArrow))
+                {
+                    currentMovement[0] = -1;
+                    currentMovement[1] = 0;
+                    isPress = true;
+                }
+                else if (Input.GetKeyDown(KeyCode.RightArrow))
+                {
+                    currentMovement[0] = 1;
+                    currentMovement[1] = 0;
+                    isPress = true;
+                }
             }
-            else if (Input.GetKeyDown(KeyCode.RightArrow)) 
-            {
-                currentMovement[0] = 1;
-                currentMovement[1] = 0;
-            }
-        }
 
-        else if (currentMovement[1] == 0)
-        {
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+            else if (currentMovement[1] == 0)
             {
-                currentMovement[0] = 0;
-                currentMovement[1] = 1;
-            }
-            else if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                currentMovement[0] = 0;
-                currentMovement[1] = -1;
+                if (Input.GetKeyDown(KeyCode.UpArrow))
+                {
+                    currentMovement[0] = 0;
+                    currentMovement[1] = 1;
+                    isPress = true;
+                }
+                else if (Input.GetKeyDown(KeyCode.DownArrow))
+                {
+                    currentMovement[0] = 0;
+                    currentMovement[1] = -1;
+                    isPress = true;
+                }
             }
         }
+        
 
         if (Time.time > nextActionTime)
         {
-            UpdateSnake();            
+            UpdateSnake();
+            isPress = false;
         }
         
     }
