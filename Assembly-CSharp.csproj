@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Script\GameController.cs" />
+    <Compile Include="Assets\Script\MainMenuController.cs" />
     <Compile Include="Assets\Script\SnakeBehavior.cs" />
     <Compile Include="Assets\Script\SnakeController.cs" />
     <Reference Include="UnityEditor.StandardEvents">

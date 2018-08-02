@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour {
     public GameObject Food;
     public GameObject Snakes;
     public GameObject Snake;
+    public GameObject PauseUI;
 
     private GameObject snakes;
     private SnakeController snakeController;
@@ -20,7 +21,7 @@ public class GameController : MonoBehaviour {
 	void Start () {
         snakes = GameObject.Find("Snakes");
         snakeController = snakes.gameObject.GetComponent<SnakeController>();
-        StratGame();
+        StartGame();
 	}
 
     void Update()
@@ -32,13 +33,11 @@ public class GameController : MonoBehaviour {
 
         if(Input.GetKeyDown(KeyCode.P) && !isLose)
         {
-            Time.timeScale = isPause ? 1 : 0;
-            snakeController.isPress = isPause ? false : true;
-            isPause = !isPause;
+            StopOrResumeGame();
         }
     }
 
-    public void StratGame()
+    public void StartGame()
     {
         for(int i = Snakes.transform.childCount - 1; i >= 0; i--)
         {
@@ -47,6 +46,14 @@ public class GameController : MonoBehaviour {
         GameObject snake = Instantiate(Snake, new Vector3(Random.Range(-5, 5) + 0.5f, Random.Range(-5, 5) + 0.5f, 0), new Quaternion());
         snake.transform.SetParent(Snakes.transform);
     }
+    
+    public void StopOrResumeGame()
+    {
+        PauseUI.SetActive(!isPause);
+        Time.timeScale = isPause ? 1 : 0;
+        snakeController.isPress = isPause ? false : true;
+        isPause = !isPause;
+    }
 
     public void Lose()
     {
@@ -54,6 +61,11 @@ public class GameController : MonoBehaviour {
         isLose = true;
         
         Debug.Log(GameObject.Find("Snakes").transform.childCount);
+    }
+
+    public void Exit()
+    {
+        Application.Quit();
     }
 
     private void AddFood()
