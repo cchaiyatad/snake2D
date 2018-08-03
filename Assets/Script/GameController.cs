@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -8,15 +7,14 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour {
 
     public bool isNoFood = true;
-    public GameObject Food;
-    public GameObject Snakes;
-    public GameObject Snake;
-    public GameObject PauseUI;
-    public GameObject GameOverMenu;
-    public Text ScoreText;
-    public Text HighScoreText;
+    public GameObject food;
+    public GameObject snakes;
+    public GameObject snake;
+    public GameObject pauseUI;
+    public GameObject gameOverMenu;
+    public Text scoreText;
+    public Text highScoreText;
 
-    private GameObject snakes;
     private SnakeController snakeController;
     private List<Vector3> snakeLocation;
     private bool isPause = false;
@@ -25,7 +23,6 @@ public class GameController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        snakes = GameObject.Find("Snakes");
         snakeController = snakes.gameObject.GetComponent<SnakeController>();
         StartGame();
 	}
@@ -47,20 +44,21 @@ public class GameController : MonoBehaviour {
     {
         Time.timeScale = 1;
         isLose = false;
+
         Destroy(GameObject.Find("Food(Clone)"));
-        isNoFood = true;
-        for (int i = Snakes.transform.childCount - 1; i >= 0; i--)
+        for (int i = snakes.transform.childCount - 1; i >= 0; i--)
         {
-            Destroy(Snakes.transform.GetChild(i).gameObject);
+            Destroy(snakes.transform.GetChild(i).gameObject);
         }
 
-        GameObject snake = Instantiate(Snake, new Vector3(Random.Range(-5, 5) + 0.5f, Random.Range(-5, 5) + 0.5f, 0), new Quaternion());
-        snake.transform.SetParent(Snakes.transform);
+        isNoFood = true;
+        GameObject newSnake = Instantiate(snake, new Vector3(Random.Range(-5, 5) + 0.5f, Random.Range(-5, 5) + 0.5f, 0), new Quaternion());
+        newSnake.transform.SetParent(snakes.transform);
     }
     
     public void StopOrResumeGame()
     {
-        PauseUI.SetActive(!isPause);
+        pauseUI.SetActive(!isPause);
         Time.timeScale = isPause ? 1 : 0;
         snakeController.isPress = isPause ? false : true;
         isPause = !isPause;
@@ -70,13 +68,13 @@ public class GameController : MonoBehaviour {
     {
         Time.timeScale = 0;
         isLose = true;
-        GameOverMenu.SetActive(true);
+        gameOverMenu.SetActive(true);
 
         int score = GameObject.Find("Snakes").transform.childCount;
         int highScore = PlayerPrefs.GetInt("HighScore", 0);
         highScore = highScore > score ? highScore : score;
-        ScoreText.text = "Your score is " +  score.ToString();
-        HighScoreText.text = "Your high score is " + highScore.ToString();
+        scoreText.text = "Your score is " +  score.ToString();
+        highScoreText.text = "Your high score is " + highScore.ToString();
         PlayerPrefs.SetInt("HighScore", highScore);    
     }
 
@@ -124,7 +122,7 @@ public class GameController : MonoBehaviour {
             isFinish = true;
         }
 
-        Instantiate(Food, new Vector3(xPosition, yPosition, 0),new Quaternion());
+        Instantiate(food, new Vector3(xPosition, yPosition, 0),new Quaternion());
 
     }
 }

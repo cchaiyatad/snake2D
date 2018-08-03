@@ -1,22 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour {
 
-    public Text HighScoreText;
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public Text highScoreText;
 
     public void OpenGame()
     {
@@ -26,7 +14,7 @@ public class MainMenuController : MonoBehaviour {
     public void SetHighScoreText()
     {
         int highScore = PlayerPrefs.GetInt("HighScore", 0);
-        HighScoreText.text = "Your high score is " + highScore.ToString();
+        highScoreText.text = "Your high score is " + highScore.ToString();
     }
 
     public void ResetHighScore()

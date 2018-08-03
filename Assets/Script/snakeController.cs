@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class SnakeController : MonoBehaviour {
@@ -83,12 +82,8 @@ public class SnakeController : MonoBehaviour {
 
         snakeLocation.Clear(); 
         for(int i = 0; i < this.gameObject.transform.childCount - 1; i++) {
-            snakeLocation.Add(this.gameObject.transform.GetChild(i).position);
-            //Debug.Log(snakeLocation[i]);
-            
+            snakeLocation.Add(this.gameObject.transform.GetChild(i).position);            
         }
-        //Debug.Log(snakeLocation.Count);
-
     }
 }
 

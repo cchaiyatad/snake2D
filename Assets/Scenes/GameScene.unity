@@ -473,13 +473,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isNoFood: 1
-  Food: {fileID: 1515209588421600, guid: 4e8fb8a1e308a874eb9348e9bf777ace, type: 2}
-  Snakes: {fileID: 1221534247}
-  Snake: {fileID: 1709584355678606, guid: 0838ed39b566dba4a9e87cff62516cfa, type: 2}
-  PauseUI: {fileID: 1494669366}
-  GameOverMenu: {fileID: 1572517495}
-  ScoreText: {fileID: 186867213}
-  HighScoreText: {fileID: 1729711324}
+  food: {fileID: 1515209588421600, guid: 4e8fb8a1e308a874eb9348e9bf777ace, type: 2}
+  snakes: {fileID: 1221534247}
+  snake: {fileID: 1709584355678606, guid: 0838ed39b566dba4a9e87cff62516cfa, type: 2}
+  pauseUI: {fileID: 1494669366}
+  gameOverMenu: {fileID: 1572517495}
+  scoreText: {fileID: 186867213}
+  highScoreText: {fileID: 1729711324}
 --- !u!4 &275906223
 Transform:
   m_ObjectHideFlags: 0
