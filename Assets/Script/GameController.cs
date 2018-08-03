@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
 
 public class GameController : MonoBehaviour {
 
@@ -9,6 +12,9 @@ public class GameController : MonoBehaviour {
     public GameObject Snakes;
     public GameObject Snake;
     public GameObject PauseUI;
+    public GameObject GameOverMenu;
+    public Text ScoreText;
+    public Text HighScoreText;
 
     private GameObject snakes;
     private SnakeController snakeController;
@@ -39,10 +45,15 @@ public class GameController : MonoBehaviour {
 
     public void StartGame()
     {
-        for(int i = Snakes.transform.childCount - 1; i >= 0; i--)
+        Time.timeScale = 1;
+        isLose = false;
+        Destroy(GameObject.Find("Food(Clone)"));
+        isNoFood = true;
+        for (int i = Snakes.transform.childCount - 1; i >= 0; i--)
         {
-            Destroy(Snakes.transform.GetChild(i));
+            Destroy(Snakes.transform.GetChild(i).gameObject);
         }
+
         GameObject snake = Instantiate(Snake, new Vector3(Random.Range(-5, 5) + 0.5f, Random.Range(-5, 5) + 0.5f, 0), new Quaternion());
         snake.transform.SetParent(Snakes.transform);
     }
@@ -59,8 +70,19 @@ public class GameController : MonoBehaviour {
     {
         Time.timeScale = 0;
         isLose = true;
-        
-        Debug.Log(GameObject.Find("Snakes").transform.childCount);
+        GameOverMenu.SetActive(true);
+
+        int score = GameObject.Find("Snakes").transform.childCount;
+        int highScore = PlayerPrefs.GetInt("HighScore", 0);
+        highScore = highScore > score ? highScore : score;
+        ScoreText.text = "Your score is " +  score.ToString();
+        HighScoreText.text = "Your high score is " + highScore.ToString();
+        PlayerPrefs.SetInt("HighScore", highScore);    
+    }
+
+    public void EnterMainMenu()
+    {
+        SceneManager.LoadScene("MainMenuScene");
     }
 
     public void Exit()
