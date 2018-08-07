@@ -27,6 +27,7 @@ public class SnakeBehavior : MonoBehaviour {
             snakeController.isEating = true;
             gameControllerScript.isNoFood = true;
             Destroy(collision.gameObject);
+            snakeController.EatFood();
         }
     }
 }

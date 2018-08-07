@@ -13,7 +13,17 @@ public class SnakeController : MonoBehaviour {
     private Vector3 currentPosition;
     private int lastCount;
     private float nextActionTime = 0.0f;
+    private AudioSource[] sounds;
+    private AudioSource turnSound;
+    private AudioSource eatFoodSound;
 
+    void Start()
+    {
+        sounds = GetComponents<AudioSource>();
+        turnSound = sounds[0];
+        eatFoodSound = sounds[1];
+    }
+    
     void Update()
     { 
         if(!isPress)
@@ -22,15 +32,11 @@ public class SnakeController : MonoBehaviour {
             {
                 if (Input.GetKeyDown(KeyCode.LeftArrow))
                 {
-                    currentMovement[0] = -1;
-                    currentMovement[1] = 0;
-                    isPress = true;
+                    SetTurning(-1, 0);
                 }
                 else if (Input.GetKeyDown(KeyCode.RightArrow))
                 {
-                    currentMovement[0] = 1;
-                    currentMovement[1] = 0;
-                    isPress = true;
+                    SetTurning(1, 0);
                 }
             }
 
@@ -38,15 +44,11 @@ public class SnakeController : MonoBehaviour {
             {
                 if (Input.GetKeyDown(KeyCode.UpArrow))
                 {
-                    currentMovement[0] = 0;
-                    currentMovement[1] = 1;
-                    isPress = true;
+                    SetTurning(0, 1);
                 }
                 else if (Input.GetKeyDown(KeyCode.DownArrow))
                 {
-                    currentMovement[0] = 0;
-                    currentMovement[1] = -1;
-                    isPress = true;
+                    SetTurning(0, -1);
                 }
             }
         }
@@ -84,6 +86,19 @@ public class SnakeController : MonoBehaviour {
         for(int i = 0; i < this.gameObject.transform.childCount - 1; i++) {
             snakeLocation.Add(this.gameObject.transform.GetChild(i).position);            
         }
+    }
+
+    private void SetTurning(int x, int y)
+    {
+        currentMovement[0] = x;
+        currentMovement[1] = y;
+        isPress = true;
+        turnSound.Play();
+    }
+
+    public void EatFood()
+    {
+        eatFoodSound.Play();
     }
 }
 

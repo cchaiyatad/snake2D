@@ -16,6 +16,7 @@ public class GameController : MonoBehaviour {
     public Text highScoreText;
 
     private SnakeController snakeController;
+    private AudioSource themeSound;
     private List<Vector3> snakeLocation;
     private bool isPause = false;
     private bool isLose = false;
@@ -24,6 +25,8 @@ public class GameController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         snakeController = snakes.gameObject.GetComponent<SnakeController>();
+        themeSound = GameObject.Find("ThemeSound").GetComponent<AudioSource>();
+        themeSound.volume = 0.15f;
         StartGame();
 	}
 
@@ -61,6 +64,7 @@ public class GameController : MonoBehaviour {
         pauseUI.SetActive(!isPause);
         Time.timeScale = isPause ? 1 : 0;
         snakeController.isPress = isPause ? false : true;
+        themeSound.volume = isPause ? 0.15f : 0.0f;
         isPause = !isPause;
     }
 

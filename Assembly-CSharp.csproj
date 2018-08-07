@@ -65,6 +65,7 @@
     <Compile Include="Assets\Script\MainMenuController.cs" />
     <Compile Include="Assets\Script\SnakeBehavior.cs" />
     <Compile Include="Assets\Script\SnakeController.cs" />
+    <Compile Include="Assets\Script\ThemeScript.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/PC/Documents/unityProject/Snake2D/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>

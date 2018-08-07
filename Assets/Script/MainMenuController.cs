@@ -6,6 +6,14 @@ public class MainMenuController : MonoBehaviour {
 
     public Text highScoreText;
 
+    private AudioSource themeSound;
+
+    public void Awake()
+    {
+        themeSound = GameObject.Find("ThemeSound").GetComponent<AudioSource>();
+        themeSound.volume = 0.4f;
+    }
+
     public void OpenGame()
     {
         SceneManager.LoadScene("GameScene");
